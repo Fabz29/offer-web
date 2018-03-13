@@ -1,0 +1,59 @@
+<nav class="navbar navbar-transparent navbar-absolute">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% if add_route is defined %}
+                <a class="navbar-brand" href="{{ path(add_route) }}">
+                    <button class="btn btn-info btn-round" data-original-title="Ajouter" rel="tooltip"
+                            data-placement="bottom">
+                        <i class="material-icons">add</i>
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+        {% if app.request.get("_route") == 'app_admin_thematic_list' %}
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="" href="{{ path('app_admin_thematic_search_remove') }}">Réinitialiser</a>
+                    </li>
+                </ul>
+
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_thematic_list'), 'attr' : {'class' : 'navbar-form navbar-right'}}) }}
+                <div class="form-group is-empty">
+                    {{ form_widget(form.offer) }}
+                    <span class="material-input"></span>
+                </div>
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+        {% if app.request.get("_route") == 'app_admin_user_list' %}
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="" href="{{ path('app_admin_user_search_remove') }}">Réinitialiser</a>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse">
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_user_list'), 'attr' : {'class' : 'navbar-form navbar-right'}}) }}
+                <div class="form-group is-empty">
+                    {{ form_widget(form.offer) }}
+                    <span class="material-input"></span>
+                </div>
+                <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                </button>
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+    </div>
+</nav>

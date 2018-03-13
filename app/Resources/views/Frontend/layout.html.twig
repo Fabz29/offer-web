@@ -1,0 +1,39 @@
+{% extends '::base.html.twig' %}
+
+
+{% block stylesheets %}
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="favicon" type="image/ico" href="{{ asset('favicon.ico') }}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,300italic,400italic,600italic,700italic,800italic%7CMontserrat:400,700&amp;amp;subset=latin-ext,latin">
+    <link rel="stylesheet" href="{{ asset('Frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Frontend/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Frontend/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('Frontend/css/global.css') }}">
+{% endblock %}
+{% block body %}
+    <body id="page-top">
+    {% block header %}
+        {% include('Frontend/Partials/notification.html.twig') %}
+        {% include('Frontend/Partials/header.html.twig') %}
+        {#{% include('Frontend/Partials/about.html.twig') %}#}
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        {% include('Frontend/Partials/download.html.twig') %}
+        {% include('Frontend/Partials/contact.html.twig') %}
+        {% include('Frontend/Partials/footer.html.twig') %}
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('Frontend/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('Frontend/js/popper.min.js') }}"></script>
+        <script src="{{ asset('Frontend/js/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('Frontend/js/jquery.magnific-popup.min.js') }}"></script>
+        <script src="{{ asset('Frontend/js/scrollreveal.js') }}"></script>
+        <script src="{{ asset('Frontend/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('Frontend/js/global.js') }}"></script>
+    {% endblock %}
+    </body>
+{% endblock %}

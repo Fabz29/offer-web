@@ -1,0 +1,68 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
+    firewalls:
+        admin:
+            pattern:            /saSecureAlliance(.*)
+            form_login:
+                provider:       fos_userbundle
+                login_path:     /saSecureAlliance/login
+                check_path:     /saSecureAlliance/login_check
+                always_use_default_target_path: true
+                default_target_path: /saSecureAlliance
+            logout:
+                path:           /saSecureAlliance/logout
+                target:         /saSecureAlliance/login
+            anonymous:    true
+            remember_me:
+                secret: "%secret%"
+                lifetime: 604800 # 7 days in seconds
+                always_remember_me: true
+
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+
+                csrf_token_generator: security.csrf.token_manager
+                # if you are using Symfony < 2.8, use the following config instead:
+                # csrf_provider: form.csrf_provider
+                default_target_path: /
+                always_use_default_target_path: true
+                use_referer: true
+                use_forward: true
+            logout:       true
+            anonymous:    true
+            remember_me:
+                secret: "%secret%"
+                lifetime: 604800 # 7 days in seconds
+                always_remember_me: true
+
+        login:
+            pattern:  ^/login$
+            security: false
+            remember_me:
+                secret: "%secret%"
+                lifetime: 604800 # 7 days in seconds
+                always_remember_me: true
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/media/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/saSecureAlliance/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/froalaeditor, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/saSecureAlliance/, roles: ROLE_ADMIN }
+

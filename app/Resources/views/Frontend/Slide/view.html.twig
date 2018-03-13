@@ -1,0 +1,45 @@
+<div id="sub-thematic-slides-{{ subThematic.id }}" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true" style="position: fixed">
+    <div class="modal-dialog modal-lg">
+        <div id="carousel{{ subThematic.id }}" class="carousel slide" data-ride="carousel" data-interval="false">
+            <ol class="carousel-indicators">
+                {% for slide in subThematic.slides %}
+                    <li data-target="#carousel{{ subThematic.id }}" data-slide-to="{{ loop.index0 }}"></li>
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner">
+                {% for slide in subThematic.slides %}
+                    <div class="carousel-item {{ loop.first ? 'active' }}">
+                        {% if slide.media.type == 'image' %}
+                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('big')) }}" data-holder-rendered="true">
+                        {% elseif slide.media.type == 'video' %}
+                            <video class="video-fluid" autoplay="" loop="">
+                                <source src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ slide.title }}</h5>
+                            <p><a target="_blank" href="http://{{ slide.link|url_encode }}">{{ slide.link }}</a></p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carousel{{ subThematic.id }}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel{{ subThematic.id }}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

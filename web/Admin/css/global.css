@@ -1,0 +1,12 @@
+.table .td-actions{
+    text-align: center;
+    display: table-cell;
+}
+
+.sortable tr:hover{
+    cursor : move;
+}
+
+.sortable .card:hover{
+    cursor : move;
+}

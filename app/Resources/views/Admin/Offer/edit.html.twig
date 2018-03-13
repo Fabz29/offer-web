@@ -1,0 +1,143 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            {% if offerId is not null %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_offer_edit', {offerId : offerId}), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% else %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_offer_edit'), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% endif %}
+            <div class="card-header card-header-text" data-background-color="rose">
+                <h4 class="card-title">Modifier l'offre</h4>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.name) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating {% if form.name.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.name) }}
+                        </div>
+                        {% if form.name.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.name) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.users) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group {% if form.users.vars.errors|length %}has-error{% endif %}" >
+                            {{ form_widget(form.users) }}
+                            <a href="{{ path('app_admin_user_edit') }}" class="btn pull-right" type="submit">Créer un client</a>
+                        </div>
+                        {% if form.users.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.users) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">
+                        {% if form.fileDownload.vars.value is not null %}
+                            Changer le fichier téléchargable
+                        {% else %}
+                            Ajouter un fichier téléchargable
+                        {% endif %}
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="form-group {% if form.fileDownload.file.vars.errors|length %}has-error{% endif %}">
+                            {{ form_widget(form.fileDownload.file) }}
+                            <div class="helper"><span>Type de fichier</span> .pptx, .pdf -
+                                <span>Taille de fichier max</span>
+                                5Mo
+                            </div>
+                        </div>
+                        {% if form.fileDownload.file.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.fileDownload.file) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if form.fileDownload.vars.value is not null %}
+                    <div class="row">
+                        <label class="col-sm-2 label-on-left">Aperçu</label>
+                        <div class="col-sm-4">
+                            <a href="{{ asset(form.fileDownload.vars.value.webPath) }}">Télécharger</a>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                        <label class="col-sm-2 label-on-left">
+                        {% if form.logo.vars.value is not null %}
+                            Changer de logo
+                        {% else %}
+                            Ajouter un logo
+                        {% endif %}
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="form-group {% if form.logo.file.vars.errors|length %}has-error{% endif %}">
+                            {{ form_widget(form.logo.file) }}
+                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
+                                <span>Taille de fichier max</span>
+                                5Mo
+                            </div>
+                        </div>
+                        {% if form.logo.file.vars.errors|length %}
+                    <div class="text-danger">
+                                {{ form_errors(form.logo.file) }}
+                    </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if form.logo.vars.value is not null %}
+                    <div class="row">
+                        <label class="col-sm-2 label-on-left">Aperçu</label>
+                        <div class="col-sm-4">
+                            <img class="img-responsiv"
+                                 src="{{ asset(form.logo.vars.value.path|imagine_filter('small')) }}" alt="">
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">
+                        {% if form.background.vars.value is not null %}
+                            Changer d'image de fond
+                        {% else %}
+                            Ajouter une image de fond
+                        {% endif %}
+                    </label>
+                    <div class="col-sm-8">
+                        <div class="form-group {% if form.background.file.vars.errors|length %}has-error{% endif %}">
+                            {{ form_widget(form.background.file) }}
+                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
+                                <span>Taille de fichier max</span>
+                                5Mo
+                            </div>
+                        </div>
+                        {% if form.background.file.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.background.file) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if form.background.vars.value is not null %}
+                    <div class="row">
+                        <label class="col-sm-2 label-on-left">Aperçu</label>
+                        <div class="col-sm-4">
+                            <img class="img-responsiv"
+                                 src="{{ asset(form.background.vars.value.path|imagine_filter('small')) }}" alt="">
+                        </div>
+                    </div>
+                {% endif %}
+                <hr>
+                <button class="btn btn-info pull-right" type="submit">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-4 col-md-6">
+            <div class="card card-product" data-count="6">
+                <div data-header-animation="true">
+                    <a href="#pablo">
+                        <img class="img" src="{{ asset('Frontend/img/mercedes.png')  }}">
+                    </a>
+                </div>
+
+                <div class="card-content">
+                    <div class="card-actions">
+                        <legend>Attribuer cette offre</legend>
+                        <div class="form-group label-floating is-empty">
+                            <select name="customer" class="form-control">
+                                <option value="1">Hubert</option>
+                                <option value="1">Charles</option>
+                            </select>
+                            <span class="material-input"></span>
+                        </div>
+                        <div style="text-align: center">
+                            <a href="{{ path('app_offer_view') }}" class="btn btn-default btn-simple" data-placement="bottom" rel="tooltip" title="" type="button" data-original-title="Voir">
+                                <i class="material-icons">art_track</i>
+                            </a>
+                            <a href="{{ path('app_admin_offer_edit') }}" class="btn btn-success btn-simple" data-placement="bottom" rel="tooltip" title="Modifier" type="button" data-original-title="Modifier">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a class="btn btn-danger btn-simple" data-placement="bottom" rel="tooltip" title="" type="button" data-original-title="Supprimer">
+                                <i class="material-icons">close</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="stats pull-left">
+                        <p class="category"><i class="material-icons">timelapse</i> 15 jours</p>
+                    </div>
+                    <div class="stats pull-right">
+                        <p class="category"><i class="material-icons">access_time</i> 15 janvier 2017</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

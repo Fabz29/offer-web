@@ -1,0 +1,220 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            {% if thematicId is not null %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_thematic_edit', {thematicId : thematicId}), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% else %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_thematic_edit'), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% endif %}
+            <div class="card-header card-header-text" data-background-color="rose">
+                <h4 class="card-title">Editer la thématique</h4>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.title) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.title) }}
+                        </div>
+                        {% if form.title.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.title) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.parentThematic) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.parentThematic) }}
+                        </div>
+                        {% if form.parentThematic.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.parentThematic) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row" id="form-template">
+                    <label class="col-md-2"></label>
+                    <div class="col-md-10">
+                        <div class="checkbox form-horizontal-checkbox">
+                            <label>
+                                {{ form_widget(form.isTemplate) }} {{ form_label(form.isTemplate) }}
+                            </label>
+                            <div class="helper">
+                                <span>Cette thématique sera dupliqué pour chaque nouvelle offre</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="form-offer">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.offer) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.offer) }}
+                        </div>
+                        {% if form.offer.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.offer) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">Image d'illustration</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.thumbnail.file) }}
+                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
+                                <span>Taille de fichier max</span>
+                                5Mo
+                            </div>
+                        </div>
+                        {% if form.thumbnail.file.vars.errors|length %}
+                            <div class="text-danger">
+                                {{ form_errors(form.thumbnail.file) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if form.thumbnail.vars.value is not null %}
+                    <div class="row">
+                        <label class="col-sm-2 label-on-left">Aperçu</label>
+                        <div class="col-sm-4">
+                            <img class="img-responsive"
+                                 src="{{ asset(form.thumbnail.vars.value.path|imagine_filter('thumbnail')) }}" alt="">
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="text-center">
+                    <a href="#" id="add-slide" class="btn btn-primary text-center">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Ajouter une slide
+                    </a>
+                </div>
+                <div class="tag-list row sortable" id="slides_list" data-prototype="{{ form_widget(form.slides.vars.prototype)|e }}">
+                    {% for fItem in form.slides %}
+                        <div class="col-lg-3 col-md-5">
+                            <div class="card card-product" id="card_slide_{{ loop.index0 }}">
+                                <div data-header-animation="true" style="text-align: center">
+
+                                    {% if fItem.media.vars.data.getType == 'image' %}
+                                        <img class="img-responsiv"
+                                             src="{{ asset(fItem.media.vars.data.path|imagine_filter('small')) }}"
+                                             alt="">
+                                    {% elseif fItem.media.vars.data.getType == 'video' %}
+                                        <img src="https://image.flaticon.com/icons/svg/138/138333.svg" width="224"
+                                             height="224" alt="Presentation free icon"
+                                             title="Presentation free icon">
+                                    {% else %}
+                                        <img src="https://image.flaticon.com/icons/svg/148/148967.svg" width="90px"
+                                             height="90px" alt="Document free icon" title="Document free icon">
+
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="card-content">
+                                    <div class="card-actions">
+                                        <legend>{{ fItem.title.vars.data }}</legend>
+                                        <div style="text-align: center">
+                                            <a target="_blank"
+                                               href="{{ asset('uploads/' ~ fItem.media.vars.data.path) }}"
+                                               class="btn btn-default btn-simple" data-placement="bottom"
+                                               rel="tooltip" title="" type="button" data-original-title="Voir">
+                                                <i class="material-icons">art_track</i>
+                                            </a>
+                                            <a class="btn btn-danger btn-simple delete"
+                                               data-item-number="{{ loop.index0 }}"
+                                               data-placement="bottom" rel="tooltip" title="" type="button">
+                                                <i class="material-icons">close</i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: none;">
+                                    {{ form_widget(fItem) }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <hr>
+                <button class="btn btn-info pull-right" type="submit">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <script>
+        var nbItemSlides = '{{ form.slides|length }}';
+        $('#add-slide').click(function (e) {
+            e.preventDefault();
+            var itemList = $('#slides_list');
+            var newWidget = itemList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, nbItemSlides);
+            nbItemSlides++;
+            removeLink = '<a id="remove-slide" class=" delete remove btn btn-danger text-center">' +
+                '<i class="fa fa-times" aria-hidden="true"></i> Supprimer la slide' +
+                '</a>';
+            itemList.append('<div class="col-sm-4">' + newWidget + removeLink + '</div>');
+        });
+
+        $(document).on("click", ".delete", function (e) {
+            e.preventDefault();
+            var itemNumber = $(this).attr('data-item-number');
+            $('#thematic_type_slides_' + itemNumber).remove();
+            $('#card_slide_' + itemNumber).remove();
+            $(this).parent().remove();
+            $(this).remove();
+        });
+
+        if ($('#thematic_type_parentThematic').val()) {
+            $('#add-slide').show();
+            $('#form-template').hide();
+            $('#form-offer').hide();
+        } else {
+            $('#add-slide').hide();
+            $('#form-template').show();
+            $('#form-offer').show();
+        }
+
+        $('#thematic_type_parentThematic').click(function (e) {
+
+            if ($('#thematic_type_parentThematic').val()) {
+                $('#add-slide').show();
+                $('#form-template').hide();
+                $('#form-offer').hide();
+            } else {
+                $('#add-slide').hide();
+                $('#form-template').show();
+                $('#form-offer').show();
+            }
+        });
+
+        if ($('#thematic_type_isTemplate').is(':checked')) {
+            $('#form-offer').hide();
+        }
+
+        $('#thematic_type_isTemplate').click(function () {
+            if ($(this).is(':checked')) {
+                $('#form-offer').hide();
+            } else {
+                $('#form-offer').show();
+            }
+        });
+
+        $('.sortable').sortable({
+            cursor: "move",
+            revert: 100,
+            update: function( event, ui ) {
+                $('.input-suite-number').each(function(index){
+                    $(this).val(index + 1);
+                });
+            }
+        });
+
+    </script>
+{% endblock %}

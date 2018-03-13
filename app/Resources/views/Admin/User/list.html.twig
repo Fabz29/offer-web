@@ -1,0 +1,80 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">view_module</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Les clients</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Offre associée</th>
+                            <th>Date d'ouverture</th>
+                            <th>Date de fermture</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.offer is not null ? user.offer.name : 'Aucune'}}</td>
+                                <td>{{ user.accessStartAt|date('d/m/Y') }}</td>
+                                <td>{{ user.accessEndAt|date('d/m/Y') }}</td>
+                                <td class="td-actions">
+                                    <a href="{{ path('app_admin_user_edit', {userId : user.id}) }}"
+                                       class="btn btn-success" rel="tooltip" data-original-title="Modifier">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <button data-toggle="modal"
+                                            data-target="#removeUser{{ user.id }}" class="btn btn-danger"
+                                            rel="tooltip" data-original-title="Supprimer">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tr>
+                            <div class="modal fade" id="removeUser{{ user.id }}" tabindex="-1" role="dialog"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation !</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Souhaitez-vous supprimer ce client
+                                            ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{ path('app_admin_user_remove', {userId : user.id}) }}"
+                                               class="btn btn-success" aria-label="">Oui</a>
+                                            <button data-dismiss="modal" type="button" class="btn btn-danger"
+                                                    aria-label="">Non
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

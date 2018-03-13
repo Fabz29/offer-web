@@ -1,0 +1,97 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            {% if slideId is not null %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_slide_edit', {slideId : slideId}), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% else %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_slide_edit'), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% endif %}
+            <div class="card-header card-header-text" data-background-color="rose">
+                <h4 class="card-title">Modifier la slide</h4>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.title) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.title.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.title) }}
+                        </div>
+                        {% if form.title.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.title) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.format) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.format) }}
+                        </div>
+                    </div>
+                    {% if form.format.vars.errors|length %}
+                        <div class="control-label">
+                            {{ form_errors(form.format) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">Image</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.picture.file) }}
+                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
+                                <span>Taille de fichier max</span>
+                                5Mo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% if form.picture.vars.value is not null %}
+                        <div class="row">
+                            <label class="col-sm-2 label-on-left">Aperçu</label>
+                            <div class="col-sm-4">
+                                <img class="img-responsiv"
+                                     src="{{ asset(form.picture.vars.value.path|imagine_filter('big')) }}" alt="">
+                            </div>
+                        </div>
+
+                    {% endif %}
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.content) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.content) }}
+                        </div>
+                    </div>
+                    {% if form.content.vars.errors|length %}
+                        <div class="control-label">
+                            {{ form_errors(form.content) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.thematic) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form_widget(form.thematic) }}
+                        </div>
+                    </div>
+                    {% if form.thematic.vars.errors|length %}
+                        <div class="control-label">
+                            {{ form_errors(form.thematic) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <hr>
+                <button class="btn btn-info pull-right" type="submit">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,83 @@
+<section class="p-0" id="thematics">
+    <div class="container-fluid p-0">
+
+
+        {% for thematic in parentThematics %}
+        {% if loop.first %}
+        <div class="row no-gutters">
+            {% endif %}
+            <div class="col-lg-3 col-sm-6">
+                <a class="portfolio-box" href="#" sub-thematic-target="{{ thematic.id }}">
+                    {% if thematic.thumbnail is not null %}
+                        <img width="100%" src="{{ asset(thematic.thumbnail.path|imagine_filter('thumbnail')) }}"
+                             alt="">
+                    {% else %}
+                        <img width="100%" alt=""
+                             src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1617b066fd6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1617b066fd6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+                    {% endif %}
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <div class="project-category text-faded">
+                                {{ thematic.title }}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            {% if loop.index is divisible by(4) or loop.last %}
+                {% for thematic in parentThematics|slice( (loop.index - 4), (loop.index)) %}
+                    <section class="sub-thematic" id="sub-thematics-{{ thematic.id }}">
+                        <div class="row">
+                            {% for subThematic in thematic.subThematics %}
+                                <div class="col-lg-3 col-sm-4">
+                                    <a class="portfolio-box" href="#" data-toggle="modal"
+                                       data-target="#sub-thematic-slides-{{ subThematic.id }}">
+                                        {% if subThematic.thumbnail is not null %}
+                                            <img width="100%"
+                                                 src="{{ asset(subThematic.thumbnail.path|imagine_filter('thumbnail')) }}"
+                                                 alt="">
+                                        {% else %}
+                                            <img width="100%" alt="First slide [800x400]"
+                                                 src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1617b066fd6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1617b066fd6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+                                        {% endif %}
+                                        <div class="portfolio-box-caption">
+                                            <div class="portfolio-box-caption-content">
+                                                <div class="project-category text-faded">
+                                                    {{ subThematic.title }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% include ('Frontend/Slide/view.html.twig') with {'subThematic' : subThematic} %}
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endfor %}
+        </div>
+
+        <div class="row no-gutters">
+            {% endif %}
+
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+
+<script>
+    $('.sub-thematic').hide();
+    $('.portfolio-box').click(function (e) {
+        e.preventDefault();
+        console.log('#sub-thematics-' + $(this).attr('sub-thematic-target'));
+        $('#sub-thematics-' + $(this).attr('sub-thematic-target')).show();
+    });
+
+    $(document).mouseup(function (e) {
+        var container = $(".sub-thematic");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.hide();
+        }
+    });
+</script>

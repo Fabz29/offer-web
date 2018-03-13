@@ -1,0 +1,10 @@
+services:
+    app.form.registration:
+        class: AppBundle\Form\UserType
+        tags:
+            - { name: form.type, alias: user_registration }
+
+    twig.extension.sortbyfield:
+        class: AppBundle\Twig\SortByFieldExtension
+        tags:
+            - { name: twig.extension }

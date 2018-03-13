@@ -1,0 +1,60 @@
+<div class="sidebar" data-color="red" data-background-color="black" data-image="{{ asset('Admin/img/sidebar-1.jpg') }}">
+    <div class="logo">
+        <a href="{{ path('app_admin_offer_edit') }}" class="simple-text">
+            <img width="200" class="img-responsive" src="{{ asset('Admin/img/custom/logo-securalliance-reflet.png') }}" alt="">
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li  {% if app.request.attributes.get('_route') starts with 'app_admin_user' %} class="active" {% endif %}>
+                <a href="{{ path('app_admin_user_list') }}">
+                    <i class="material-icons">person</i>
+                    <p>Utilisateurs</p>
+                </a>
+            </li>
+            <li {% if app.request.attributes.get('_route') starts with 'app_admin_offer' or app.request.attributes.get('_route') starts with 'app_admin_homepage' %} class="active" {% endif %}>
+                <a href="{{ path('app_admin_offer_list') }}">
+                    <i class="material-icons">bookmark</i>
+                    <p>Offres</p>
+                </a>
+            </li>
+            <li {% if app.request.attributes.get('_route') starts with 'app_admin_thematic' %} class="active" {% endif %}>
+                <a href="{{ path('app_admin_thematic_list') }}">
+                    <i class="material-icons">view_module</i>
+                    <p>Thématiques</p>
+                </a>
+            </li>
+           {# <li routerlinkactive="active" >
+                <a data-toggle="collapse" href="#thematics" >
+                    <i class="material-icons">view_module</i>
+                    <p>Thématiques<b class="caret"></b></p>
+                </a>
+
+                <div class="collapse" id="thematics" aria-expanded="true">
+                    <ul class="nav">
+                        <li routerlinkactive="active" {% if app.request.attributes.get('_route') starts with 'app_admin_thematic' %} class="active" {% endif %}>
+                            <a href="{{ path('app_admin_thematic_list') }}">
+                                <span class="sidebar-mini">TM</span>
+                                <span class="sidebar-normal">Thématiques modèle</span>
+                            </a>
+                        </li>
+                        <li routerlinkactive="active">
+                            <a href="{{ path('app_admin_thematic_list') }}">
+                                <span class="sidebar-mini">T</span>
+                                <span class="sidebar-normal">Thématiques</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>#}
+            <li {% if app.request.attributes.get('_route') starts with 'app_admin_stats' %} class="active" {% endif %}>
+                <a href="{{ path('app_admin_stats_view') }}">
+                    <i class="material-icons">timeline</i>
+                    <p>Stats</p>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>
+

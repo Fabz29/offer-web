@@ -1,0 +1,21 @@
+{% if pagination.nbPages is defined and pagination.nbPages > 1 %}
+    <div class="text-center">
+        <ul class="pagination">
+            {% if pagination.numPage > 1 %}
+                <li class="paginate_button first">
+                    <a href="{{ path(pagination.route, pagination.route_params|merge({'numPage' : 1})) }}">Première</a>
+                </li>
+            {% endif %}
+            {% for p in range(max(pagination.numPage-4, 1), min(pagination.numPage+4, pagination.nbPages)) %}
+                <li class="paginate_button {% if pagination.numPage == p %}active{% endif %}">
+                    <a href="{{ path(pagination.route, pagination.route_params|merge({'numPage' : p })) }}">{{ p }}</a>
+                </li>
+            {% endfor %}
+            {% if pagination.numPage < pagination.nbPages %}
+                <li class="paginate_button last">
+                    <a href="{{ path(pagination.route, pagination.route_params|merge({'numPage' : pagination.nbPages })) }}">Dernière</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endif %}

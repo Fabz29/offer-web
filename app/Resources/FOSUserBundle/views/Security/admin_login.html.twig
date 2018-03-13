@@ -1,0 +1,60 @@
+{% extends 'Admin/layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+    {% if error %}
+        <div class="col-md-2 col-md-offset-5">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></h3>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    {% endif %}
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                    <form class="login-form" action="{{ path("admin_check") }}" method="post">
+                        <div class="card card-login">
+                            <div class="card-content">
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">face</i>
+                                        </span>
+                                    <div class="form-group label-floating is-empty">
+                                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                                        <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" required="required"/>
+
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="material-icons">lock_outline</i>
+                                        </span>
+                                    <div class="form-group label-floating is-empty">
+                                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                                        <input class="form-control" type="password" id="password" name="_password" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="footer text-center">
+                                <button class="btn btn-rose btn-simple btn-wd btn-lg" type="submit">{{ 'security.login.submit'|trans }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

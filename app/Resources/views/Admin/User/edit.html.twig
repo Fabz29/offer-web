@@ -1,0 +1,119 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            {% if userId is not null %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_user_edit', {userId : userId}), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% else %}
+                {{ form_start(form, {'method': 'post', 'action': path('app_admin_user_edit'), 'attr' : {'class' : 'form-horizontal'}}) }}
+            {% endif %}
+            <div class="card-header card-header-text" data-background-color="rose">
+                <h4 class="card-title">Modifier le client</h4>
+            </div>
+            <div class="card-content">
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.email) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.email.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.email) }}
+                        </div>
+                        {% if form.email.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.email) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.lastName) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.lastName.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.lastName) }}
+                        </div>
+                        {% if form.lastName.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.lastName) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.firstName) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.firstName.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.firstName) }}
+                        </div>
+                        {% if form.firstName.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.firstName) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.plainPassword) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.plainPassword.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.plainPassword) }}
+                        </div>
+                        {% if form.plainPassword.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.plainPassword) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {#<div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.offer) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.offer.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.offer) }}
+                        </div>
+                        {% if form.offer.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.offer) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>#}
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.accessStartAt) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.accessStartAt.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.accessStartAt) }}
+                        </div>
+                        {% if form.accessStartAt.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.accessStartAt) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.accessEndAt) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.accessEndAt.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {{ form_widget(form.accessEndAt) }}
+                        </div>
+                        {% if form.accessEndAt.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.accessEndAt) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <button class="btn btn-info pull-right" type="submit">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

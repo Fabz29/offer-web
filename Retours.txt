@@ -1,0 +1,23 @@
+- Visu des sous thématiques directement quand la souris passe sur l’image (pas de Clic pour voir ce qu’il y a dans la thématique)  -> A FAIRE
+
+- Reproduire automatiquement l’image de fond quand création d’une nouvelle offre (laisser quand même la possibilité de la changer) -> Debug lors du changement de l'image par défaut
+
+- Bug quand création d’une nouvelle offre : pas de reprise des photos des thématiques et sous thématiques ? -> Faire un test final
+
+- Dans le bandeau du haut de page, le bouton « à propos » ne fonctionne pas. Modifier le nom changer par «Accédez à votre offre » + scroll automatique vers « page » thématiques -> A valider
+
+- Idem sur bouton « découvrir » sur page d’accueil principale. Modifier nom par «Accédez à votre offre » + scrolling -> A valider
+
+- Difficulté quand on crée un interlocuteur Client, pas possible de l’insérer dans nouvelle offre ? -> Faire un test final
+
+ 
+
++ réfléchir au module admin : voir pour trier les thématiques (par Client, isoler les parties « fixes » et les parties « variables », etc… ) -> A valider / améliorer
+
+- Ajouter un target _blank sur les liens footer
+
+- Verifier affichage slide
+
+- développer les stats
+
+- Revoir l'affichage des slides par rangs de 4

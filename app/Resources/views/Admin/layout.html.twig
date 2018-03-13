@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+
+{% block stylesheets %}
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="favicon" type="image/ico" href="{{ asset('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/css/jquery-ui.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/css/material-dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('Frontend/css/font-awesome.min.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('Admin/css/bootstrap-datepicker3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('Admin/css/global.css') }}">
+
+
+{% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('Admin/js/jquery-3.2.1.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/bootstrap.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/material.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/arrive.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/perfect-scrollbar.jquery.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/bootstrap-notify.js') }}"></script>
+            <script src="{{ asset('Admin/js/bootstrap-datepicker.min.js') }}"></script>
+            <script src="{{ asset('Admin/js/locales/bootstrap-datepicker.fr.min.js') }}" charset="UTF-8"></script>
+            <script src="{{ asset('Admin/js/material-dashboard.js') }}"></script>
+            <script src="{{ asset('Admin/js/global.js') }}"></script>
+        {% endblock %}
+
+{% block body %}
+<body>
+<div class="wrapper">
+    {% block header %}
+    {% include('Admin/Partials/sidebar.html.twig') %}
+    <div class="main-panel">
+        {% include('Admin/Partials/notification.html.twig') %}
+        {% include('Admin/Partials/header.html.twig') %}
+
+        {% endblock %}
+        <div class="content">
+            <div class="container-fluid">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {% block footer %}
+            {% include('Admin/Partials/footer.html.twig') %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+{% endblock %}

@@ -1,0 +1,27 @@
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: %kernel.root_dir%/../web/uploads
+    resolvers:
+       default:
+          web_path: ~
+
+    filter_sets:
+        cache: ~
+        big:
+            filters:
+                thumbnail: { size: [1200, 800], mode: inset }
+        medium:
+            filters:
+                thumbnail: { size: [800, 600], mode: inset }
+        small:
+            filters:
+                thumbnail: { size: [220, 110], mode: inset }
+        thumbnail:
+            filters:
+                thumbnail: { size: [500, 280], mode: inset }
+        logo:
+            filters:
+                relative_resize:
+                    heighten: 40

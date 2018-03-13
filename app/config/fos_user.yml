@@ -1,0 +1,18 @@
+fos_user:
+    service:
+        mailer: fos_user.mailer.twig_swift
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    resetting:
+        email:
+            template:   App/Frontend/Mails/resetting.html.twig
+    registration:
+        form:
+            type: AppBundle\Form\UserType
+            name: user_registration
+        confirmation:
+            enabled: false
+    from_email:
+        address:        noreply@SecureAlliance.net
+        sender_name:    SecureAlliance

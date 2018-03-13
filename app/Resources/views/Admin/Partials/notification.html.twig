@@ -1,0 +1,30 @@
+<div class="pad margin no-print">
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-danger">
+            <span>
+            <b> Erreur - </b> {{ flashMessage|raw }}
+            </span>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('info') %}
+        <div class="alert alert-info">
+            <span>
+            <b> Information - </b> {{ flashMessage|raw }}
+            </span>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('warning') %}
+        <div class="alert alert-warning">
+            <span>
+            <b> Attention - </b> {{ flashMessage|raw }}
+            </span>
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-success">
+            <span>
+            <b> Confirmé - </b> {{ flashMessage|raw }}
+            </span>
+        </div>
+    {% endfor %}
+</div>

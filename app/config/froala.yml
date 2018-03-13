@@ -1,0 +1,5 @@
+kms_froala_editor:
+  language: "fr"
+  serialNumber: "XXXX-XXXX-XXXX"
+  includeJQuery: false
+  includeFontAwesome: false

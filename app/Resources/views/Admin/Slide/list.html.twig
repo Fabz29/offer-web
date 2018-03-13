@@ -1,0 +1,67 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-icon" data-background-color="rose">
+                <i class="material-icons">view_module</i>
+            </div>
+            <div class="card-content">
+                <h4 class="card-title">Les slides</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Thématique associée</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for slide in slides %}
+                            <tr>
+                                <td>{{ slide.title }}</td>
+                                <td>{{ slide.thematic.name }}</td>
+                                <td class="td-actions">
+                                    <a href="{{ path('app_admin_slide_edit', {slideId : slide.id}) }}" class="btn btn-success" rel="tooltip" data-original-title="Modifier">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                    <button data-toggle="modal"
+                                            data-target="#removeSlide{{ slide.id }}" class="btn btn-danger" rel="tooltip" data-original-title="Supprimer">
+                                        <i class="material-icons">close</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tr>
+                            <div class="modal fade" id="removeSlide{{ slide.id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Confirmation !</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Souhaitez-vous supprimer cette slide ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{ path('app_admin_slide_remove', {slideId : slide.id}) }}" class="btn btn-success" aria-label="">Oui</a>
+                                            <button data-dismiss="modal" type="button" class="btn btn-danger" aria-label="">Non</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
