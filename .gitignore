@@ -15,7 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-
+.idea/
 ###> symfony/phpunit-bridge ###
 .phpunit
 /phpunit.xml

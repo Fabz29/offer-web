@@ -69,10 +69,7 @@
                     <div class="col-sm-8">
                         <div class="form-group">
                             {{ form_widget(form.thumbnail.file) }}
-                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
-                                <span>Taille de fichier max</span>
-                                5Mo
-                            </div>
+                            <div class="helper">Type de fichier .jpg, .png - Taille de fichier max 2Mo</div>
                         </div>
                         {% if form.thumbnail.file.vars.errors|length %}
                             <div class="text-danger">
@@ -81,7 +78,7 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if form.thumbnail.vars.value is not null %}
+                {% if form.thumbnail.vars.value is not null and form.vars.valid %}
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Aperçu</label>
                         <div class="col-sm-4">

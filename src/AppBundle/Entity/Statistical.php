@@ -23,6 +23,20 @@ class Statistical
     private $id;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="userName", type="string", length=255, nullable=true)
+     */
+    private $userName;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="offerName", type="string", length=255, nullable=true)
+     */
+    private $offerName;
+
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="ConnectionTime", type="time", nullable=true)
@@ -35,6 +49,14 @@ class Statistical
      * @ORM\Column(name="isOfferDownload", type="boolean")
      */
     private $isOfferDownload = false;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"userName", "offerName"})
+     * @ORM\Column(name="slug", type="string", length=255, unique=true)
+     */
+    private $slug;
 
     /**
      * @var \DateTime
@@ -68,6 +90,38 @@ class Statistical
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getUserName(): ?string
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param null|string $userName
+     */
+    public function setUserName(?string $userName): void
+    {
+        $this->userName = $userName;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getOfferName(): ?string
+    {
+        return $this->offerName;
+    }
+
+    /**
+     * @param null|string $offerName
+     */
+    public function setOfferName(?string $offerName): void
+    {
+        $this->offerName = $offerName;
     }
 
     /**
@@ -119,11 +173,27 @@ class Statistical
     }
 
     /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
      *
-     * @return User
+     * @return Statistical
      */
     public function setCreatedAt($createdAt)
     {

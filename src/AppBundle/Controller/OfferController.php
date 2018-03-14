@@ -21,7 +21,7 @@ class OfferController extends Controller
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(404, "Offer not found");
         }
 
-        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'DESC'));
+        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
 
         return $this->render('Frontend/Offer/view.html.twig', array(
             'offer' => $offer,

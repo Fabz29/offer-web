@@ -90,7 +90,7 @@ class ThematicController extends Controller
 
     /**
      * @Route("/thematic/edit/{thematicId}", name="app_admin_thematic_edit", requirements={"thematicId": "\d+"})
-     * @Route("/thematic/add/{parentThematicId}", name="app_admin_add_sub_thematic", requirements={"parentThematicId": "\d+"})
+     * @Route("/thematic/add/{parentThematicId}", name="app_admin_thematic_add", requirements={"parentThematicId": "\d+"})
      */
     public function editAction(Request $request, $thematicId = null, $parentThematicId = null)
     {

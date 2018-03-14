@@ -88,7 +88,7 @@ class User extends BaseUser
     private $updatedAt;
 
     /**
-     * @var object
+     * @var Offer
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Offer", inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(onDelete="SET NULL")
@@ -103,6 +103,14 @@ class User extends BaseUser
      */
     private $statistical;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Thematic", inversedBy="statUserReaders", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $statThematicViews;
+
     public function __construct()
     {
         parent::__construct();
@@ -111,6 +119,7 @@ class User extends BaseUser
         $accessEndAt = $accessStartAt->add(new \DateInterval("P1M"));
         $this->accessEndAt = $accessEndAt;
         $this->plainPassword = substr(hash('sha512',rand()),0,12);
+        $this->statThematicViews = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -351,5 +360,30 @@ class User extends BaseUser
     {
         $this->statistical = $statistical;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getStatThematicViews()
+    {
+        return $this->statThematicViews;
+    }
+
+    /**
+     * @param mixed $statThematicView
+     */
+    public function addStatThematicView($statThematicView)
+    {
+        $this->statThematicViews[] = $statThematicView;
+    }
+
+    /**
+     * @param mixed $statThematicView
+     */
+    public function removeStatThematicView($statThematicView)
+    {
+        $this->statThematicViews->removeElement($statThematicView);
+    }
+
 }
 

@@ -104,10 +104,19 @@ class Thematic
      */
     private $thumbnail;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="statThematicViews", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $statUserReaders;
+
     public function __construct()
     {
         $this->slides = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subThematics = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statUserReaders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -360,9 +369,34 @@ class Thematic
         $this->parentThematic = $parentThematic;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getStatUserReaders()
+    {
+        return $this->statUserReaders;
+    }
+
+    /**
+     * @param mixed $statUserReaders
+     */
+    public function addStatUserReader($statUserReaders)
+    {
+        $this->statUserReaders[] = $statUserReaders;
+    }
+
+    /**
+     * @param mixed $statUserReaders
+     */
+    public function removeStatUserReader($statUserReaders)
+    {
+        $this->statUserReaders->removeElement($statUserReaders);
+    }
+
     public function __clone() {
         $this->id = null;
         $this->parentThematic = null;
+        $this->statUserReaders = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setIsTemplate(false);
     }
 }

@@ -357,7 +357,7 @@ class Media
         }
 
         if (null !== $this->tempFilename) {
-            $oldFile = $this->getUploadRootDir().$this->path.'.'.$this->tempFilename;
+            $oldFile = $this->getUploadRootDir() . $this->path . '.' . $this->tempFilename;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -371,7 +371,7 @@ class Media
      */
     public function preRemoveUpload()
     {
-        $this->tempFilename = $this->getUploadRootDir().$this->path;
+        $this->tempFilename = $this->getUploadRootDir() . $this->path;
     }
 
     /**
@@ -391,27 +391,39 @@ class Media
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../web/'.$this->getUploadDir();
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
     }
 
     public function getWebPath()
     {
-        return $this->getUploadDir().$this->path;
+        return $this->getUploadDir() . $this->path;
     }
 
     public function getType()
     {
         if (preg_match('/\.(jpg|png|jpeg|gif)$/', $this->getPath())) {
             return 'image';
-        } else if (preg_match('/\.(mp3|mov|mp4)$/', $this->getPath())){
+        } else if (preg_match('/\.(mp3|mov|mp4)$/', $this->getPath())) {
             return 'video';
-        } else{
+        } else {
             return 'file';
         }
     }
 
-    public function __clone() {
+    public function __clone()
+    {
+        var_dump('heloo');
         $this->id = null;
+        $this->path = $this->duplicate();
+    }
+
+    public function duplicate()
+    {
+        $file = $this->getUploadRootDir() . $this->path;
+        $newFile =  uniqid() . substr($this->path, strpos($this->path, '.'));
+        copy($file, $this->getUploadRootDir() . $newFile);
+
+        return $newFile;
     }
 }
 

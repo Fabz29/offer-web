@@ -54,6 +54,27 @@ class OfferController extends Controller
             $defaultPicture = new Media();
             $defaultPicture->setPath('securalliance-fond.jpg');
             $offer->setBackground($defaultPicture);
+        }
+
+
+
+        $form = $this->createForm(OfferType::class, $offer, array('userIds' => $offer->getUsers()));
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->get('logo')->getData() == null && $offer->getLogo() == null){
+            $this->get('session')->getFlashBag()->add('error', "Veuillez ajouter un logo.");
+            $form->get('logo')->get('file')->addError(new FormError('Veuillez ajouter un logo.'));
+        }
+
+        if($form->isSubmitted() && $form->get('background')->getData() == null && $offer->getBackground() == null){
+            $this->get('session')->getFlashBag()->add('error', "Veuillez une image de fond.");
+            $form->get('background')->get('file')->addError(new FormError('Veuillez ajouter une image de fond.'));
+        }
+
+        $users = $em->getRepository('AppBundle:User')->findByOffer($offerId);
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $sharedThematics = $em->getRepository('AppBundle:Thematic')->findBy(array('isTemplate' => true, 'parentThematic' => null));
 
@@ -80,25 +101,6 @@ class OfferController extends Controller
                     }
                 }
             }
-        }
-
-        $form = $this->createForm(OfferType::class, $offer, array('userIds' => $offer->getUsers()));
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->get('logo')->getData() == null && $offer->getLogo() == null){
-            $this->get('session')->getFlashBag()->add('error', "Veuillez ajouter un logo.");
-            $form->get('logo')->get('file')->addError(new FormError('Veuillez ajouter un logo.'));
-        }
-
-        if($form->isSubmitted() && $form->get('background')->getData() == null && $offer->getBackground() == null){
-            $this->get('session')->getFlashBag()->add('error', "Veuillez une image de fond.");
-            $form->get('background')->get('file')->addError(new FormError('Veuillez ajouter une image de fond.'));
-        }
-
-        $users = $em->getRepository('AppBundle:User')->findByOffer($offerId);
-
-        if ($form->isSubmitted() && $form->isValid()) {
 
             foreach ($users as $user) {
 
@@ -118,6 +120,7 @@ class OfferController extends Controller
             $form->get('logo')->getData()->setOfferLogo($offer);
             $form->get('background')->getData()->setOfferBackground($offer);
             $em->persist($offer);
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', "L'offre a bien été modifiée.");
@@ -172,7 +175,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('app_admin_offer_list');
         }
 
-        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'DESC'));
+        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
 
         return $this->render('Frontend/Offer/view.html.twig', array(
             'offer' => $offer,

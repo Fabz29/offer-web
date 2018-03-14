@@ -29,9 +29,10 @@
                 <div class="row">
                     <label class="col-sm-2 label-on-left">{{ form_label(form.users) }}</label>
                     <div class="col-sm-8">
-                        <div class="form-group {% if form.users.vars.errors|length %}has-error{% endif %}" >
+                        <div class="form-group {% if form.users.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.users) }}
-                            <a href="{{ path('app_admin_user_edit') }}" class="btn pull-right" type="submit">Créer un client</a>
+                            <a href="{{ path('app_admin_user_edit') }}" class="btn pull-right" type="submit">Créer un
+                                client</a>
                         </div>
                         {% if form.users.vars.errors|length %}
                             <div class="text-danger">
@@ -51,10 +52,7 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.fileDownload.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.fileDownload.file) }}
-                            <div class="helper"><span>Type de fichier</span> .pptx, .pdf -
-                                <span>Taille de fichier max</span>
-                                5Mo
-                            </div>
+                            <div class="helper">Type de fichier .pptx, .pdf - Taille de fichier max 2Mo</div>
                         </div>
                         {% if form.fileDownload.file.vars.errors|length %}
                             <div class="text-danger">
@@ -63,7 +61,7 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if form.fileDownload.vars.value is not null %}
+                {% if form.fileDownload.vars.value is not null and form.vars.valid %}
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Aperçu</label>
                         <div class="col-sm-4">
@@ -72,7 +70,7 @@
                     </div>
                 {% endif %}
                 <div class="row">
-                        <label class="col-sm-2 label-on-left">
+                    <label class="col-sm-2 label-on-left">
                         {% if form.logo.vars.value is not null %}
                             Changer de logo
                         {% else %}
@@ -82,19 +80,16 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.logo.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.logo.file) }}
-                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
-                                <span>Taille de fichier max</span>
-                                5Mo
-                            </div>
+                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 2Mo</div>
                         </div>
                         {% if form.logo.file.vars.errors|length %}
-                    <div class="text-danger">
+                            <div class="text-danger">
                                 {{ form_errors(form.logo.file) }}
-                    </div>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
-                {% if form.logo.vars.value is not null %}
+                {% if form.logo.vars.value is not null and form.vars.valid %}
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Aperçu</label>
                         <div class="col-sm-4">
@@ -114,10 +109,7 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.background.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.background.file) }}
-                            <div class="helper"><span>Type de fichier</span> .jpg, .png -
-                                <span>Taille de fichier max</span>
-                                5Mo
-                            </div>
+                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 2Mo</div>
                         </div>
                         {% if form.background.file.vars.errors|length %}
                             <div class="text-danger">
@@ -126,7 +118,7 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if form.background.vars.value is not null %}
+                {% if form.background.vars.value is not null  and form.vars.valid %}
                     <div class="row">
                         <label class="col-sm-2 label-on-left">Aperçu</label>
                         <div class="col-sm-4">
