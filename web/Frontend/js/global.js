@@ -73,3 +73,19 @@
     });
 
 })(jQuery); // End of use strict
+
+$(document).ready(function() {
+    var start = new Date();
+
+    $(window).unload(function() {
+        var end = new Date();
+        $.ajax({
+            url: "log.php",
+            data: {'timeSpent': end - start},
+            async: false
+        })
+    });
+});
+window.addEventListener("load", function(event) {
+    lazyload();
+});

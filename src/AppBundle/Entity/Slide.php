@@ -237,9 +237,22 @@ class Slide
         $this->media = $media;
     }
 
-    public function __clone() {
+    public function __clone()
+    {
         $this->id = null;
     }
 
+    public function hasYouTubeLink()
+    {
+        if($this->link === null){
+            return false;
+        }
+
+        if (preg_match('~^(?:https?://)?(?:www[.])?(?:youtube[.]com/watch[?]v=|youtu[.]be/)([^&]{11})~x', $this->link, $matches)) {
+            return true;
+        }
+
+        return false;
+    }
 }
 

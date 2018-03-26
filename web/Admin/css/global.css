@@ -10,3 +10,7 @@
 .sortable .card:hover{
     cursor : move;
 }
+
+.thematic-templates{
+    background-color: aliceblue!important;
+}

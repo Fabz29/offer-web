@@ -18,6 +18,15 @@ liip_imagine:
         small:
             filters:
                 thumbnail: { size: [220, 110], mode: inset }
+        thematic:
+            filters:
+                resize: { size: [475, 300] }
+        sub_thematic:
+            filters:
+                resize: { size: [250, 158] }
+        slide:
+            filters:
+                resize: { size: [1000, 566] }
         thumbnail:
             filters:
                 thumbnail: { size: [500, 280], mode: inset }

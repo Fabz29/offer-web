@@ -58,7 +58,7 @@ class UserController extends Controller
 
         return $this->render('Admin/User/list.html.twig', array(
             'users' => $users,
-            'add_route' => 'app_admin_user_list',
+            'add_route' => 'app_admin_user_edit',
             'form' => $form->createView(),
             'offerId' => $offerId,
             'pagination' => $pagination,

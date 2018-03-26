@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 {% if thematicTemplates|length > 0 %}
-                    <div class="card">
+                    <div class="card thematic-templates">
                         <div class="card-header card-header-icon" data-background-color="rose">
                             Les thématiques modèles
                             <button type="button" rel="tooltip" data-original-title="Ordonner les thématiques modèles" class="btn btn-primary btn-sm order" data-sort="#sortable-thematic-template">
@@ -25,13 +25,13 @@
                                     </tr>
                                     </thead>
                                     <tbody class="sortable" id="sortable-thematic-template">
-                                    {% for thematic in thematicTemplates if thematic.parentThematic is null %}
+                                    {% for thematic in thematicTemplates|sortbyfield('suiteNumber') if thematic.parentThematic is null %}
                                         <tr id="{{ thematic.id }}">
                                             <td>{{ thematic.title }}</td>
                                             <td>{{ thematic.suiteNumber }}</td>
                                             <td>
                                                 {% if thematic.subThematics|length > 0 %}
-                                                    <table class="table table-hover table-bordered">
+                                                    <table class="table table-hover table-bordered thematic-templates">
                                                         <thead class="text-primary">
                                                         <tr>
                                                             <th>Titre</th>
@@ -41,7 +41,7 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody class="sortable" id="sortable-sub-thematic-template-{{ thematic.id }}">
-                                                        {% for subThematic in thematic.subThematics %}
+                                                        {% for subThematic in thematic.subThematics|sortbyfield('suiteNumber') %}
                                                             <tr id="{{ subThematic.id }}">
                                                                 <td>{{ subThematic.title }}</td>
                                                                 <td>{{ subThematic.suiteNumber }}</td>
@@ -162,7 +162,7 @@
                 <div class="card">
                     <div class="card-header card-header-icon" data-background-color="rose">
                         Les thématiques
-                        {% if app.request.get('offerId') %}
+                        {% if app.session.get('thematicOfferId') %}
                         <button type="button" rel="tooltip" data-original-title="Ordonner les thématiques modèles" class="btn btn-primary btn-sm order" data-sort="#sortable-thematic-{{ app.request.get('offerId') }}">
                             <i class="material-icons">compare_arrows</i> Ordonner
                         </button>
@@ -180,7 +180,7 @@
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
-                                <tbody  {% if app.request.get('offerId') %} class="sortable" id="sortable-thematic-{{ app.request.get('offerId') }}"{% endif %}>
+                                <tbody  {% if app.session.get('thematicOfferId') %} class="sortable" id="sortable-thematic-{{ app.request.get('offerId') }}"{% endif %}>
                                 {% for thematic in thematics if thematic.parentThematic is null %}
                                     <tr id="{{ thematic.id }}">
                                         <td>{{ thematic.title }}</td>
@@ -198,7 +198,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="sortable" id="sortable-sub-thematic-template-{{ thematic.id }}">
-                                                    {% for subThematic in thematic.subThematics %}
+                                                    {% for subThematic in thematic.subThematics|sortbyfield('suiteNumber') %}
                                                         <tr id="{{ subThematic.id }}">
                                                             <td>{{ subThematic.title }}</td>
                                                             <td>{{ subThematic.suiteNumber }}</td>

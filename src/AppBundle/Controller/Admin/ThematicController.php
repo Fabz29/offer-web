@@ -17,9 +17,9 @@ class ThematicController extends Controller
 {
 
     /**
-     * @Route("/thematics/{numPage}/{offerId}", name="app_admin_thematic_list", defaults={"numPage" = 1}, requirements={"numPage": "\d+"})
+     * @Route("/thematics/{numPage}", name="app_admin_thematic_list", defaults={"numPage" = 1}, requirements={"numPage": "\d+"})
      */
-    public function listAction(Request $request, $numPage, $offerId = null)
+    public function listAction(Request $request, $numPage)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(OfferSearchType::class);
@@ -56,9 +56,7 @@ class ThematicController extends Controller
         $thematicTemplates = null;
         if ($numPage < 2 and !$offer) {
             $thematicTemplates = $em->getRepository('AppBundle:Thematic')->findBy(
-                array(
-                    'isTemplate' => true,
-                    )
+                array('isTemplate' => true)
             );
         }
 

@@ -10,12 +10,14 @@
             <div class="carousel-inner">
                 {% for slide in subThematic.slides %}
                     <div class="carousel-item {{ loop.first ? 'active' }}">
-                        {% if slide.media.type == 'image' %}
-                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('big')) }}" data-holder-rendered="true">
-                        {% elseif slide.media.type == 'video' %}
+                        {% if slide.media.type == 'image' and slide.hasYouTubeLink == false %}
+                        <img class="d-block w-100 lazyload" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">
+{#                        {% elseif slide.media.type == 'video' %}
                             <video class="video-fluid" autoplay="" loop="">
-                                <source src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4">
-                            </video>
+                                <source src="{{ asset(slide.media.path) }}" type="video/mp4">
+                            </video>#}
+                        {% elseif slide.hasYouTubeLink %}
+                            <iframe width="100" height="562" src="https://{{ slide.link|url_encode }}"></iframe>
                         {% endif %}
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ slide.title }}</h5>

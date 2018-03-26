@@ -56,18 +56,15 @@ class OfferController extends Controller
             $offer->setBackground($defaultPicture);
         }
 
-
-
         $form = $this->createForm(OfferType::class, $offer, array('userIds' => $offer->getUsers()));
-
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->get('logo')->getData() == null && $offer->getLogo() == null){
+        if ($form->isSubmitted() && $form->get('logo')->getData() == null && $offer->getLogo() == null) {
             $this->get('session')->getFlashBag()->add('error', "Veuillez ajouter un logo.");
             $form->get('logo')->get('file')->addError(new FormError('Veuillez ajouter un logo.'));
         }
 
-        if($form->isSubmitted() && $form->get('background')->getData() == null && $offer->getBackground() == null){
+        if ($form->isSubmitted() && $form->get('background')->getData() == null && $offer->getBackground() == null) {
             $this->get('session')->getFlashBag()->add('error', "Veuillez une image de fond.");
             $form->get('background')->get('file')->addError(new FormError('Veuillez ajouter une image de fond.'));
         }
@@ -76,28 +73,30 @@ class OfferController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $sharedThematics = $em->getRepository('AppBundle:Thematic')->findBy(array('isTemplate' => true, 'parentThematic' => null));
+            if ($offerId == null) {
+                $sharedThematics = $em->getRepository('AppBundle:Thematic')->findBy(array('isTemplate' => true, 'parentThematic' => null));
 
-            foreach ($sharedThematics as $sharedThematic){
-                $thematic = clone $sharedThematic;
-                $thumbnail = clone $sharedThematic->getThumbnail();
-                $thumbnail->setThematicThumbnail($thematic);
-                $thematic->setOffer($offer);
-                $em->persist($thumbnail);
-                foreach ($sharedThematic->getSubThematics() as $subSharedThematic){
-                    $subThematic = clone $subSharedThematic;
-                    $thumbnail = clone $subSharedThematic->getThumbnail();
-                    $subThematic->setParentThematic($thematic);
-                    $subThematic->setOffer($offer);
-                    $thumbnail->setThematicThumbnail($subThematic);
+                foreach ($sharedThematics as $sharedThematic) {
+                    $thematic = clone $sharedThematic;
+                    $thumbnail = clone $sharedThematic->getThumbnail();
+                    $thumbnail->setThematicThumbnail($thematic);
+                    $thematic->setOffer($offer);
                     $em->persist($thumbnail);
-                    foreach($subSharedThematic->getSlides() as $sharedSlide){
-                        $slide = clone $sharedSlide;
-                        $media = clone $sharedSlide->getMedia();
-                        $media->setSlide($slide);
-                        $slide->setThematic($subThematic);
-                        $em->persist($media);
-                        $em->persist($slide);
+                    foreach ($sharedThematic->getSubThematics() as $subSharedThematic) {
+                        $subThematic = clone $subSharedThematic;
+                        $thumbnail = clone $subSharedThematic->getThumbnail();
+                        $subThematic->setParentThematic($thematic);
+                        $subThematic->setOffer($offer);
+                        $thumbnail->setThematicThumbnail($subThematic);
+                        $em->persist($thumbnail);
+                        foreach ($subSharedThematic->getSlides() as $sharedSlide) {
+                            $slide = clone $sharedSlide;
+                            $media = clone $sharedSlide->getMedia();
+                            $media->setSlide($slide);
+                            $slide->setThematic($subThematic);
+                            $em->persist($media);
+                            $em->persist($slide);
+                        }
                     }
                 }
             }
@@ -113,14 +112,13 @@ class OfferController extends Controller
                 $user->setOffer($offer);
             }
 
-            if($form->get('fileDownload')->getData()){
+            if ($form->get('fileDownload')->getData()) {
                 $form->get('fileDownload')->getData()->setOfferDownload($offer);
             }
-            
+
             $form->get('logo')->getData()->setOfferLogo($offer);
             $form->get('background')->getData()->setOfferBackground($offer);
             $em->persist($offer);
-
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', "L'offre a bien été modifiée.");
@@ -175,7 +173,7 @@ class OfferController extends Controller
             return $this->redirectToRoute('app_admin_offer_list');
         }
 
-        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
+        $parentThematics = $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
 
         return $this->render('Frontend/Offer/view.html.twig', array(
             'offer' => $offer,
