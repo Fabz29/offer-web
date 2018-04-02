@@ -9,10 +9,9 @@
             <div class="col-lg-3 col-sm-6">
                 <a class="portfolio-box hovered" href="#" sub-thematic-target="{{ thematic.id }}">
                     {% if thematic.thumbnail is not null %}
-                        <img width="100%" src="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}" alt="">
+                        <img class="lazy" width="100%" src="{{ asset('Frontend/img/loader.gif') }}" data-original="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}" alt="">
                     {% else %}
-                        <img width="100%" alt=""
-                             src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1617b066fd6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1617b066fd6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+                        <img width="100%" src="{{ asset('Frontend/img/default-sub-thematic.png') }}">
                     {% endif %}
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
@@ -28,7 +27,7 @@
             {% for thematic in parentThematics|slice( (loop.index - 4), (loop.index)) %}
                 <section class="sub-thematic" id="sub-thematics-{{ thematic.id }}">
                     <div class="row">
-                        {% for subThematic in thematic.subThematics %}
+                        {% for subThematic in thematic.subThematics|sortbyfield('suiteNumber') %}
                             <div class="col-lg-2 col-sm-3">
                                 <a class="portfolio-box" href="#" data-toggle="modal"
                                    data-target="#sub-thematic-slides-{{ subThematic.id }}">
@@ -37,8 +36,7 @@
                                              src="{{ asset(subThematic.thumbnail.path|imagine_filter('sub_thematic')) }}"
                                              alt="">
                                     {% else %}
-                                        <img width="100%" alt="First slide [800x400]"
-                                             src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22800%22%20height%3D%22400%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20800%20400%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_1617b066fd6%20text%20%7B%20fill%3A%23555%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A40pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_1617b066fd6%22%3E%3Crect%20width%3D%22800%22%20height%3D%22400%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22285.921875%22%20y%3D%22217.7%22%3EFirst%20slide%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+                                        <img width="100%" src="{{ asset('Frontend/img/default-sub-thematic.png') }}">
                                     {% endif %}
                                     <div class="portfolio-box-caption">
                                         <div class="portfolio-box-caption-content">
@@ -75,19 +73,15 @@
             $('.sub-thematic').not($('#sub-thematics-' + $(this).attr('sub-thematic-target'))).hide();
         }
     });
-
     /*    $(document).mouseup(function (e) {
             var container = $(".sub-thematic");
             if (!container.is(e.target) && container.has(e.target).length === 0) {
                 container.hide();
             }
         });*/
-
     /*  $('.sub-thematic').hide();
       $('.hovered').hover(function (e) {
           $('.sub-thematic').not($('#sub-thematics-' + $(this).attr('sub-thematic-target'))).hide();
           $('#sub-thematics-' + $(this).attr('sub-thematic-target')).fadeIn();
       }); */
-
-
 </script>

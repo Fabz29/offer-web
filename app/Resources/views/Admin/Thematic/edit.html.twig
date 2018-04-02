@@ -92,38 +92,47 @@
                         <i class="fa fa-plus" aria-hidden="true"></i> Ajouter une slide
                     </a>
                 </div>
-                <div class="tag-list row sortable" id="slides_list" data-prototype="{{ form_widget(form.slides.vars.prototype)|e }}">
+                <div class="tag-list row sortable" id="slides_list"
+                     data-prototype="{{ form_widget(form.slides.vars.prototype)|e }}">
                     {% for fItem in form.slides %}
                         <div class="col-lg-3 col-md-5">
                             <div class="card card-product" id="card_slide_{{ loop.index0 }}">
                                 <div data-header-animation="true" style="text-align: center">
 
-                                    {% if fItem.media.vars.data.getType == 'image' %}
-                                        <img class="img-responsiv"
-                                             src="{{ asset(fItem.media.vars.data.path|imagine_filter('small')) }}"
-                                             alt="">
-                                    {% elseif fItem.media.vars.data.getType == 'video' %}
-                                        <img src="https://image.flaticon.com/icons/svg/138/138333.svg" width="224"
-                                             height="224" alt="Presentation free icon"
-                                             title="Presentation free icon">
-                                    {% else %}
-                                        <img src="https://image.flaticon.com/icons/svg/148/148967.svg" width="90px"
-                                             height="90px" alt="Document free icon" title="Document free icon">
+                                    {% if fItem.media.vars.data is not null %}
+                                        {% if fItem.media.vars.data.getType == 'image' %}
+                                            <img class="img-responsiv"
+                                                 src="{{ asset(fItem.media.vars.data.path|imagine_filter('small')) }}"
+                                                 alt="">
+                                        {% elseif fItem.media.vars.data.getType == 'video' %}
+                                            <img src="https://image.flaticon.com/icons/svg/138/138333.svg" width="224"
+                                                 height="224" alt="Presentation free icon"
+                                                 title="Presentation free icon">
+                                        {% else %}
+                                            <img src="https://image.flaticon.com/icons/svg/148/148967.svg" width="90px"
+                                                 height="90px" alt="Document free icon" title="Document free icon">
 
+                                        {% endif %}
                                     {% endif %}
-
                                 </div>
 
                                 <div class="card-content">
                                     <div class="card-actions">
                                         <legend>{{ fItem.title.vars.data }}</legend>
                                         <div style="text-align: center">
-                                            <a target="_blank"
-                                               href="{{ asset('uploads/' ~ fItem.media.vars.data.path) }}"
-                                               class="btn btn-default btn-simple" data-placement="bottom"
-                                               rel="tooltip" title="" type="button" data-original-title="Voir">
-                                                <i class="material-icons">art_track</i>
-                                            </a>
+
+                                                {% if fItem.media.vars.data is not null and fItem.media.vars.data.getType == 'image' %}
+                                                    <a target="_blank"
+                                                       href="{{ asset('uploads/' ~ fItem.media.vars.data.path) }}"
+                                                       class="btn btn-default btn-simple" data-placement="bottom"
+                                                       rel="tooltip" title="" type="button" data-original-title="Voir">
+                                                        <i class="material-icons">art_track</i>
+                                                    </a>
+                                                {% elseif fItem.vars.value.hasYouTubeLink %}
+                                                    <iframe width="100%" height="250"
+                                                            src="{{ fItem.vars.value.link}}"></iframe>
+                                                {% endif %}
+
                                             <a class="btn btn-danger btn-simple delete"
                                                data-item-number="{{ loop.index0 }}"
                                                data-placement="bottom" rel="tooltip" title="" type="button">
@@ -206,8 +215,8 @@
         $('.sortable').sortable({
             cursor: "move",
             revert: 100,
-            update: function( event, ui ) {
-                $('.input-suite-number').each(function(index){
+            update: function (event, ui) {
+                $('.input-suite-number').each(function (index) {
                     $(this).val(index + 1);
                 });
             }

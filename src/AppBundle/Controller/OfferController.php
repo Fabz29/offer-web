@@ -4,11 +4,12 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class OfferController extends Controller
 {
     /**
-     * @Route("/", name="app_offer_view")
+     * @Route("/", name="app_offer_view", )
      */
     public function homepageAction()
     {
@@ -21,9 +22,9 @@ class OfferController extends Controller
             throw new \Symfony\Component\HttpKernel\Exception\HttpException(404, "Offer not found");
         }
 
-        $parentThematics =  $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
+        $parentThematics = $em->getRepository('AppBundle:Thematic')->findBy(array('parentThematic' => null, 'offer' => $offer), array('suiteNumber' => 'ASC'));
 
-        return $this->render('Frontend/Offer/view.html.twig', array(
+        return $this->render("Frontend/Offer/view.html.twig", array(
             'offer' => $offer,
             'parentThematics' => $parentThematics,
         ));

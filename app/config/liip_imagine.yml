@@ -11,13 +11,13 @@ liip_imagine:
         cache: ~
         big:
             filters:
-                thumbnail: { size: [1000, 800], mode: inset }
+                resize: { size: [1000, 800] }
         medium:
             filters:
-                thumbnail: { size: [800, 600], mode: inset }
+                resize: { size: [800, 600] }
         small:
             filters:
-                thumbnail: { size: [220, 110], mode: inset }
+                resize: { size: [220, 110] }
         thematic:
             filters:
                 resize: { size: [475, 300] }

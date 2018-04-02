@@ -1,6 +1,10 @@
 <div id="sub-thematic-slides-{{ subThematic.id }}" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true" style="position: fixed">
-    <div class="modal-dialog modal-lg">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fa fa-times fa-2"aria-hidden="true"></i>
+    </button>
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
         <div id="carousel{{ subThematic.id }}" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
                 {% for slide in subThematic.slides %}
@@ -8,16 +12,17 @@
                 {% endfor %}
             </ol>
             <div class="carousel-inner">
+
                 {% for slide in subThematic.slides %}
                     <div class="carousel-item {{ loop.first ? 'active' }}">
-                        {% if slide.media.type == 'image' and slide.hasYouTubeLink == false %}
-                        <img class="d-block w-100 lazyload" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">
+                        {% if slide.media is not null and slide.media.type == 'image' and slide.hasYouTubeLink == false %}
+                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">
 {#                        {% elseif slide.media.type == 'video' %}
                             <video class="video-fluid" autoplay="" loop="">
                                 <source src="{{ asset(slide.media.path) }}" type="video/mp4">
                             </video>#}
                         {% elseif slide.hasYouTubeLink %}
-                            <iframe width="100" height="562" src="https://{{ slide.link|url_encode }}"></iframe>
+                            <iframe width="100%" height="569" src="{{ slide.link }}"></iframe>
                         {% endif %}
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ slide.title }}</h5>

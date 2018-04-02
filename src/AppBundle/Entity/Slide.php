@@ -122,7 +122,11 @@ class Slide
      */
     public function getLink()
     {
-        return $this->link;
+        if($this->hasYouTubeLink()){
+           return str_replace("watch?v=", "embed/", $this->link);
+        } else {
+            return $this->link;
+        }
     }
 
     /**
@@ -130,7 +134,7 @@ class Slide
      */
     public function setLink($link)
     {
-        $this->link = $link;
+            $this->link = $link;
     }
 
     /**

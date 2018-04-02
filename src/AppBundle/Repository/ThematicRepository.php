@@ -12,7 +12,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class ThematicRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getByPage($page, $params = array())
+    public function getByPage($page, $params = array(), $limit = 20)
     {
         $qb = $this->createQueryBuilder('t');
 
@@ -22,7 +22,7 @@ class ThematicRepository extends \Doctrine\ORM\EntityRepository
 
         $qb->andWhere('t.parentThematic IS NULL');
         $qb->orderBy("t.suiteNumber", 'ASC');
-        $qb->setFirstResult(($page - 1) * 20)->setMaxResults(20);
+        $qb->setFirstResult(($page - 1) * $limit)->setMaxResults($limit);
 
         return new Paginator($qb, true);
     }

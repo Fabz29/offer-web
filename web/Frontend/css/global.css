@@ -243,6 +243,7 @@ header.masthead p {
 
 .portfolio-box .portfolio-box-caption {
     position: absolute;
+    min-height: 118px;
     bottom: 0;
     display: block;
     width: 100%;
@@ -285,6 +286,10 @@ header.masthead p {
 
 .portfolio-box:focus {
     outline: none;
+}
+
+.portfolio-box img{
+    min-height: 118px;
 }
 
 .sub-thematic{
@@ -488,3 +493,26 @@ header.masthead p {
 .modal-lg {
     max-width: 1110px;
 }
+
+.carousel-control-next{
+    margin-right: -15%;
+}
+
+.carousel-control-next:hover, .carousel-control-prev:hover{
+    background: #515151;
+}
+
+.carousel-control-prev{
+    margin-left: -15%;
+}
+
+.close{
+    color: white!important;
+    padding: 15px!important;
+}
+
+.close:hover{
+    cursor: pointer!important;
+}
+
+

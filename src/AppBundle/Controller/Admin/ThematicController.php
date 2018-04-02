@@ -115,7 +115,7 @@ class ThematicController extends Controller
         $form = $this->createForm(ThematicType::class, $thematic);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->get('thumbnail')->getData() == null && $thematic->getThumbnail() == null) {
+        if ($form->isSubmitted() && $form->get('thumbnail')->getData() == null && $thematic->getThumbnail() == null && $thematic->getParentThematic() == null) {
             $this->get('session')->getFlashBag()->add('error', "Veuillez ajouter une image.");
             $form->get('thumbnail')->get('file')->addError(new FormError('Veuillez ajouter une image.'));
         }
@@ -132,7 +132,11 @@ class ThematicController extends Controller
             foreach ($form->get('slides')->getData() as $slide) {
                 $suiteNumber++;
                 $slide->setThematic($thematic);
-                $slide->getMedia()->setSlide($slide);
+
+                if($slide->getMedia() != null){
+                    $slide->getMedia()->setSlide($slide);
+                }
+
                 if (!$slide->getSuiteNumber()) {
                     $slide->setSuiteNumber($suiteNumber);
                 }
@@ -152,7 +156,10 @@ class ThematicController extends Controller
                 $thematic->setSuiteNumber($maxSuiteNumber + 1);
             }
 
-            $form->get('thumbnail')->getData()->setThematicThumbnail($thematic);
+            if($form->get('thumbnail')->getData() != null){
+                $form->get('thumbnail')->getData()->setThematicThumbnail($thematic);
+            }
+
             $em->persist($thematic);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success',
