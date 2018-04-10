@@ -6,7 +6,7 @@
         {% if loop.first %}
         <div class="row no-gutters">
             {% endif %}
-            <div class="col-lg-3 col-sm-6">
+            <div class="col-lg-3 col-sm-6 bg-black">
                 <a class="portfolio-box hovered" href="#" sub-thematic-target="{{ thematic.id }}">
                     {% if thematic.thumbnail is not null %}
                         <img class="lazy" width="100%" src="{{ asset('Frontend/img/loader.gif') }}" data-original="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}" alt="">
@@ -15,7 +15,7 @@
                     {% endif %}
                     <div class="portfolio-box-caption">
                         <div class="portfolio-box-caption-content">
-                            <div class="project-category text-faded">
+                            <div class="project-category title-lvl-1 text-faded">
                                 {{ thematic.title }}
                             </div>
                         </div>
@@ -24,7 +24,8 @@
             </div>
 
             {% if loop.index is divisible by(4) or loop.last %}
-            {% for thematic in parentThematics|slice( (loop.index - 4), (loop.index)) %}
+{#            {% for thematic in parentThematics|slice( (loop.index - 4), (loop.index)) %}#}
+            {% for thematic in parentThematics %}
                 <section class="sub-thematic" id="sub-thematics-{{ thematic.id }}">
                     <div class="row">
                         {% for subThematic in thematic.subThematics|sortbyfield('suiteNumber') %}

@@ -1,6 +1,5 @@
 <?php
 
-die;
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__ . '/../vendor/autoload.php';

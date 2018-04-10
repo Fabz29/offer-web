@@ -84,17 +84,21 @@ class OfferController extends Controller
                     $em->persist($thumbnail);
                     foreach ($sharedThematic->getSubThematics() as $subSharedThematic) {
                         $subThematic = clone $subSharedThematic;
-                        $thumbnail = clone $subSharedThematic->getThumbnail();
+                        if($subSharedThematic->getThumbnail()){
+                            $thumbnail = clone $subSharedThematic->getThumbnail();
+                            $thumbnail->setThematicThumbnail($subThematic);
+                            $em->persist($thumbnail);
+                        }
                         $subThematic->setParentThematic($thematic);
                         $subThematic->setOffer($offer);
-                        $thumbnail->setThematicThumbnail($subThematic);
-                        $em->persist($thumbnail);
                         foreach ($subSharedThematic->getSlides() as $sharedSlide) {
                             $slide = clone $sharedSlide;
-                            $media = clone $sharedSlide->getMedia();
-                            $media->setSlide($slide);
+                            if($sharedSlide->getMedia()){
+                                $media = clone $sharedSlide->getMedia();
+                                $media->setSlide($slide);
+                                $em->persist($media);
+                            }
                             $slide->setThematic($subThematic);
-                            $em->persist($media);
                             $em->persist($slide);
                         }
                     }

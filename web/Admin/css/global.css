@@ -1,16 +1,21 @@
-.table .td-actions{
+.table .td-actions {
     text-align: center;
     display: table-cell;
 }
 
-.sortable tr:hover{
-    cursor : move;
+.sortable tr:hover {
+    cursor: move;
 }
 
-.sortable .card:hover{
-    cursor : move;
+.sortable .card:hover {
+    cursor: move;
 }
 
-.thematic-templates{
-    background-color: aliceblue!important;
+.thematic-templates {
+    background-color: aliceblue !important;
+}
+
+.form-horizontal .control-label {
+    text-align: left !important;
+    color: red !important;
 }

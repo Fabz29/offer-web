@@ -16,7 +16,9 @@
                 {% for slide in subThematic.slides %}
                     <div class="carousel-item {{ loop.first ? 'active' }}">
                         {% if slide.media is not null and slide.media.type == 'image' and slide.hasYouTubeLink == false %}
-                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">
+{#                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">#}
+
+                            <img class="d-block w-100" src="{{ asset(slide.media.webPath) }}" data-holder-rendered="true">
 {#                        {% elseif slide.media.type == 'video' %}
                             <video class="video-fluid" autoplay="" loop="">
                                 <source src="{{ asset(slide.media.path) }}" type="video/mp4">
