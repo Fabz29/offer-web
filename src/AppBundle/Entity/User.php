@@ -51,6 +51,13 @@ class User extends BaseUser
     /**
      * @var string
      *
+     * @ORM\Column(name="civility", type="string", columnDefinition="enum('Madame', 'Monsieur')")
+     */
+    private $civility;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="companyName", type="string", length=255, nullable=true)
      */
     private $companyName;
@@ -101,20 +108,12 @@ class User extends BaseUser
     private $offer;
 
     /**
-     * @var User
+     * @var object
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Statistical", inversedBy="user", cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\StatsUser", mappedBy="user", cascade={"persist", "remove"})
      */
-    private $statistical;
+    private $statsUser;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Thematic", inversedBy="statUserReaders", cascade={"persist"})
-     * @ORM\JoinColumn(onDelete="SET NULL")
-     */
-    private $statThematicViews;
 
     public function __construct()
     {
@@ -124,7 +123,6 @@ class User extends BaseUser
         $accessEndAt = $accessStartAt->add(new \DateInterval("P1M"));
         $this->accessEndAt = $accessEndAt;
         $this->plainPassword = substr(hash('sha512',rand()),0,12);
-        $this->statThematicViews = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -184,6 +182,27 @@ class User extends BaseUser
     {
         return $this->firstName;
     }
+
+    /**
+     * @return string
+     */
+    public function getCivility()
+    {
+        return $this->civility;
+    }
+
+    /**
+     * @param string $civility
+     * 
+     * @return User
+     */
+    public function setCivility($civility)
+    {
+        $this->civility = $civility;
+
+        return $this;
+    }
+
 
     /**
      * @return string
@@ -351,44 +370,19 @@ class User extends BaseUser
     }
 
     /**
-     * @return User
+     * @return object
      */
-    public function getStatistical()
+    public function getStatsUser()
     {
-        return $this->statistical;
+        return $this->statsUser;
     }
 
     /**
-     * @param User $statistical
+     * @param object $statsUser
      */
-    public function setStatistical($statistical)
+    public function setStatsUser($statsUser)
     {
-        $this->statistical = $statistical;
+        $this->statsUser = $statsUser;
     }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getStatThematicViews()
-    {
-        return $this->statThematicViews;
-    }
-
-    /**
-     * @param mixed $statThematicView
-     */
-    public function addStatThematicView($statThematicView)
-    {
-        $this->statThematicViews[] = $statThematicView;
-    }
-
-    /**
-     * @param mixed $statThematicView
-     */
-    public function removeStatThematicView($statThematicView)
-    {
-        $this->statThematicViews->removeElement($statThematicView);
-    }
-
 }
 

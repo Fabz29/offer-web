@@ -55,6 +55,31 @@
                     </div>
                 </div>
                 <div class="row">
+                    <label class="col-sm-2 label-on-left">{{ form_label(form.civility) }}</label>
+                    <div class="col-sm-8">
+                        <div class="form-group label-floating is-empty {% if form.civility.vars.errors|length %}has-error{% endif %}">
+                            <label class="control-label"></label>
+                            {% for fItem in form.civility %}
+                                <div class="form-check">
+                                    <label class="form-check-label">
+                                        {{ form_widget(fItem) }}
+                                        {{ form_label(fItem) }}
+                                        <span class="circle">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            {% endfor %}
+
+                        </div>
+                        {% if form.civility.vars.errors|length %}
+                            <div class="control-label">
+                                {{ form_errors(form.civility) }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
                     <label class="col-sm-2 label-on-left">{{ form_label(form.plainPassword) }}</label>
                     <div class="col-sm-8">
                         <div class="form-group label-floating is-empty {% if form.plainPassword.vars.errors|length %}has-error{% endif %}">

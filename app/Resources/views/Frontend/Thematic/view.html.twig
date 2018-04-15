@@ -9,7 +9,8 @@
             <div class="col-lg-3 col-sm-6 bg-black">
                 <a class="portfolio-box hovered" href="#" sub-thematic-target="{{ thematic.id }}">
                     {% if thematic.thumbnail is not null %}
-                        <img class="lazy" width="100%" src="{{ asset('Frontend/img/loader.gif') }}" data-original="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}" alt="">
+                    {#    <img class="lazy" width="100%" src="{{ asset('Frontend/img/loader.gif') }}" data-original="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}" alt="">#}
+                        <img width="100%" src="{{ asset(thematic.thumbnail.path|imagine_filter('thematic')) }}">
                     {% else %}
                         <img width="100%" src="{{ asset('Frontend/img/default-sub-thematic.png') }}">
                     {% endif %}
@@ -37,7 +38,7 @@
                                              src="{{ asset(subThematic.thumbnail.path|imagine_filter('sub_thematic')) }}"
                                              alt="">
                                     {% else %}
-                                        <img width="100%" src="{{ asset('Frontend/img/default-sub-thematic.png') }}">
+                                        <img width="100%" src="{{ asset('Frontend/img/default-sub-thematic.jpg') }}">
                                     {% endif %}
                                     <div class="portfolio-box-caption">
                                         <div class="portfolio-box-caption-content">
@@ -48,6 +49,22 @@
                                     </div>
                                 </a>
                             </div>
+                            <script>
+                                var start;
+
+                                $('#sub-thematic-slides-{{ subThematic.id }}').on('show.bs.modal', function (e) {
+                                    start = new Date();
+                                });
+
+                                $('#sub-thematic-slides-{{ subThematic.id }}').on('hidden.bs.modal', function (e) {
+                                    var end = new Date();
+                                    $.ajax({
+                                        url: '{{ path('app_stats_subThematic_add_time', {subThematicId : subThematic.id}) }}',
+                                        data: {'time': end - start},
+                                        async: false
+                                    })
+                                });
+                            </script>
                             {% include ('Frontend/Slide/view.html.twig') with {'subThematic' : subThematic} %}
                         {% endfor %}
                     </div>

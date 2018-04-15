@@ -8,6 +8,7 @@ use AppBundle\Repository\OfferRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -22,6 +23,20 @@ class UserType extends AbstractType
                 'class' => 'form-control'
             )
         ));
+        $builder->add('civility', ChoiceType::class, array(
+                'choices' => array(
+                    'Madame' => 'Madame',
+                    'Monsieur' => 'Monsieur',
+                ),
+                'label' => 'Civilité',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => true,
+                'attr' => array(
+                    'class' => 'form-control'
+                )
+            )
+        );
         if ($options['isChange']) {
             $builder->add('plainPassword', TextType::class, array(
                 'label' => "Mot de passe",

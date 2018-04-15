@@ -27,6 +27,8 @@
         {% include('Frontend/Partials/contact.html.twig') %}
         {% include('Frontend/Partials/footer.html.twig') %}
     {% endblock %}
+    </body>
+{% endblock %}
     {% block javascripts %}
         <script src="{{ asset('Frontend/js/jquery.min.js') }}"></script>
         <script src="{{ asset('Frontend/js/popper.min.js') }}"></script>
@@ -36,6 +38,17 @@
         <script src="{{ asset('Frontend/js/scrollreveal.min.js') }}"></script>
         <script src="{{ asset('Frontend/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('Frontend/js/global.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                var start = new Date();
+                $(window).on("unload", function(e) {
+                    var end = new Date();
+                    $.ajax({
+                        url: '{{ path('app_stats_user_add_time') }}',
+                        data: {'time': end - start},
+                        async: false
+                    })
+                });
+            });
+        </script>
     {% endblock %}
-    </body>
-{% endblock %}

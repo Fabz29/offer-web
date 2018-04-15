@@ -12,7 +12,7 @@
 
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-shrink" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <img src="{{ asset(offer.logo.path|imagine_filter('logo')) }}" alt="">
@@ -27,9 +27,11 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#thematics">Votre offre</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#download">Téléchargement</a>
-                </li>
+                {% if offer is defined and offer.fileDownload %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#download">Téléchargement</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                 </li>
@@ -49,7 +51,7 @@
             </div>
             <div class="col-lg-12 mx-auto">
                 <p class="text-faded">
-                    Bonjour {{ app.user.firstName|capitalize }} {{ app.user.lastName|capitalize }} <br>
+                    Bonjour {{ app.user.civility }} {{ app.user.lastName|upper }} <br>
                     En réponse à votre consultation, nous avons créé pour vous cette offre dématérialisée qui reflète
                     la motivation et la mobilisation de l’ensemble des équipes Securalliance à vous satisfaire.
                 </p>

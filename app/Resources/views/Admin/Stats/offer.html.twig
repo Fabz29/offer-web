@@ -1,0 +1,93 @@
+{% extends 'Admin/layout.html.twig' %}
+
+{% block content %}
+    {% for statsUser in statsOffer.statsUsers %}
+        <div class="header text-center">
+            <h3 class="title">{{ statsUser.userName }}</h3>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">query_builder</i>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <p class="card-category">Temps de connexion</p>
+                            <h3 class="card-title">{{ statsUser.time|date_modify("-1 hour")|date('H:i:s') }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-stats">
+                    <div class="card-header card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="material-icons">file_download</i>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <p class="card-category">Téléchargement</p>
+                            <h3 class="card-title">{{ statsUser.isDownload ? 'Oui' : 'Non' }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header card-header-icon card-header-info">
+                        <h4 class="card-title">
+                            Temps de connexion (en min) par sous-thématiques
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="ct-chart" id="chartSubThematic{{ statsUser.id }}">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                var data = {
+                    labels: [
+                        {% for statsSubThematic in statsUser.statsSubThematics %}
+                        '{{ statsSubThematic.subThematicName }}',
+                        {% endfor %}
+                    ],
+                    series: [[
+                        {% for statsSubThematic in statsUser.statsSubThematics %}
+                        {{ statsSubThematic.time / 60 }},
+                        {% endfor %}
+                    ],
+                    ]
+                };
+
+                var options = {
+                    seriesBarDistance: 15
+                };
+
+                var responsiveOptions = [
+                    ['screen and (min-width: 641px) and (max-width: 1024px)', {
+                        seriesBarDistance: 10,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value;
+                            }
+                        }
+                    }],
+                    ['screen and (max-width: 640px)', {
+                        seriesBarDistance: 5,
+                        axisX: {
+                            labelInterpolationFnc: function (value) {
+                                return value[0];
+                            }
+                        }
+                    }]
+                ];
+
+                new Chartist.Bar('#chartSubThematic{{ statsUser.id }}', data, options, responsiveOptions);
+            </script>
+        </div>
+    {% endfor %}
+{% endblock %}

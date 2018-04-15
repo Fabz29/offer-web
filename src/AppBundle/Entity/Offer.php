@@ -92,6 +92,14 @@ class Offer
      */
     private $fileDownload;
 
+    /**
+     * @var object
+     *
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\StatsOffer", inversedBy="offer", cascade={"persist", "remove"})
+     */
+    private $statsOffer;
+
+
     public function __construct()
     {
         $this->thematics = new \Doctrine\Common\Collections\ArrayCollection();
@@ -298,6 +306,22 @@ class Offer
     public function setFileDownload($fileDownload)
     {
         $this->fileDownload = $fileDownload;
+    }
+
+    /**
+     * @return object
+     */
+    public function getStatsOffer()
+    {
+        return $this->statsOffer;
+    }
+
+    /**
+     * @param object $statsOffer
+     */
+    public function setStatsOffer($statsOffer)
+    {
+        $this->statsOffer = $statsOffer;
     }
 }
 

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\OfferType;
 use AppBundle\Entity\Offer;
 use AppBundle\Entity\Media;
+use AppBundle\Entity\StatsOffer;
 use Symfony\Component\Form\FormError;
 
 /**
@@ -106,7 +107,6 @@ class OfferController extends Controller
             }
 
             foreach ($users as $user) {
-
                 if (false === $offer->getUsers()->contains($user)) {
                     $user->setOffer(null);
                 }
@@ -114,6 +114,14 @@ class OfferController extends Controller
 
             foreach ($form->get('users')->getData() as $user) {
                 $user->setOffer($offer);
+   /*             if(!$user->getStatsUser()){
+                    $statsUser = new StatsUser();
+                    $statsUser->setUser($user);
+                }else{
+                    $statsUser = $user->getStatsUser();
+                }
+
+                $statsOffer->addStatsUser($statsUser);*/
             }
 
             if ($form->get('fileDownload')->getData()) {
@@ -122,6 +130,17 @@ class OfferController extends Controller
 
             $form->get('logo')->getData()->setOfferLogo($offer);
             $form->get('background')->getData()->setOfferBackground($offer);
+
+            if(!$offer->getStatsOffer()){
+                $statsOffer = new StatsOffer();
+                $offer->setStatsOffer($statsOffer);
+                $statsOffer->setOffer($offer);
+            } else {
+                $statsOffer = $offer->getStatsOffer();
+            }
+
+            $statsOffer->setOfferName($offer->getName());
+            $em->persist($statsOffer);
             $em->persist($offer);
             $em->flush();
 
