@@ -11,10 +11,9 @@ umask(0000);
 // This check prevents access to debug front controllers that are deployed by accident to production servers.
 // Feel free to remove this, extend it, or make something more sophisticated.
 if (isset($_SERVER['HTTP_CLIENT_IP'])
-    || !(in_array(@$_SERVER['HTTP_X_FORWARDED_FOR'], array('127.0.0.1', 'fe80::1', '::1', '212.198.250.173', '80.13.26.136', '176.166.171.246', '78.241.110.32', '193.253.40.247', '77.156.206.226', '80.14.163.66', '80.214.28.145', '89.159.185.42')) || php_sapi_name() === 'cli-server'))
-{
+    || !(in_array(@$_SERVER['HTTP_X_FORWARDED_FOR'], array('127.0.0.1', 'fe80::1', '::1', '212.198.250.173', '80.13.26.136', '176.166.171.246', '78.241.110.32', '193.253.40.247', '77.156.206.226', '80.14.163.66', '80.214.28.145', '89.159.185.42', '85.10.122.6', '195.218.7.26')) || php_sapi_name() === 'cli-server')) {
     header('HTTP/1.0 403 Forbidden');
-    exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
+    exit('You are not allowed to access this file. Check ' . basename(__FILE__) . ' for more information.');
 }
 
 

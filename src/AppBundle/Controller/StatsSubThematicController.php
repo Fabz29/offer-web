@@ -20,7 +20,18 @@ class StatsSubThematicController extends Controller
         $user = $this->getUser();
         $subThematic = $em->getRepository('AppBundle:Thematic')->findOneById($subThematicId);
         $time = ($request->get('time') / 1000);
-        $statsUser = $em->getRepository('AppBundle:StatsUser')->findOneByUser($user);
+        $statsOffer = $em->getRepository('AppBundle:StatsOffer')->findOneByOffer($user->getOffer());
+        $statsUser = $em->getRepository('AppBundle:StatsUser')->findOneBy(array(
+            'user' => $user,
+            'statsOffer' => $statsOffer
+        ));
+
+        if (!$statsUser) {
+            $statsUser = new StatsUser();
+            $statsUser->setStatsOffer($statsOffer);
+            $statsUser->setUser($this->getUser());
+            $statsUser->setUserName($user->getFirstName() . ' ' . $user->getLastName());
+        }
 
         $statsSubThematic = $em->getRepository('AppBundle:StatsSubThematic')->findOneBy(array(
             'subThematic' => $subThematic,

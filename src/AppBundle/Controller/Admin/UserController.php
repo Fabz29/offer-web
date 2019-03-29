@@ -89,6 +89,8 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $userManager = $this->container->get('fos_user.user_manager');
+            $userManager->updatePassword($user);
             $user->setEnabled(true);
             $this->get('session')->getFlashBag()->add('success',
                 "Le client a bien été édité.");

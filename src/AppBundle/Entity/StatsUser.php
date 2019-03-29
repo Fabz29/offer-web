@@ -41,7 +41,7 @@ class StatsUser
      *
      * @ORM\Column(name="is_download", type="boolean")
      */
-    private $isDownload;
+    private $isDownload = 0;
 
     /**
      * @var \DateTime

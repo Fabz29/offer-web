@@ -7,13 +7,13 @@
 
         <div id="carousel{{ subThematic.id }}" class="carousel slide" data-ride="carousel" data-interval="false">
             <ol class="carousel-indicators">
-                {% for slide in subThematic.slides %}
+                {% for slide in subThematic.slides|sortbyfield('suiteNumber') %}
                     <li data-target="#carousel{{ subThematic.id }}" data-slide-to="{{ loop.index0 }}"></li>
                 {% endfor %}
             </ol>
             <div class="carousel-inner">
 
-                {% for slide in subThematic.slides %}
+                {% for slide in subThematic.slides|sortbyfield('suiteNumber') %}
                     <div class="carousel-item {{ loop.first ? 'active' }}">
                         {% if slide.media is not null and slide.media.type == 'image' and slide.hasYouTubeLink == false %}
                             {#                        <img class="d-block w-100" src="{{ asset(slide.media.path|imagine_filter('slide')) }}" data-holder-rendered="true">#}
@@ -47,15 +47,7 @@
         </div>
     </div>
 </div>
-<script>
 
-    $('.modal').on('hidden.bs.modal', function (e) {
-        var url = $('.video-embed-youtube').attr('src');
-        $('.video-embed-youtube').attr('src', '');
-        $('.video-embed-youtube').attr('src', url);
-    });
-
-</script>
 
 
 

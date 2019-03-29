@@ -5,8 +5,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" sizes="32x32">
     <link rel="favicon" type="image/ico" href="{{ asset('favicon.ico') }}">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-          rel='stylesheet' type='text/css'>
     <link rel="stylesheet"
           href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800,300italic,400italic,600italic,700italic,800italic%7CMontserrat:400,700&amp;amp;subset=latin-ext,latin">
     <link rel="stylesheet" href="{{ asset('Frontend/css/bootstrap.min.css') }}">
@@ -48,6 +46,12 @@
                         data: {'time': end - start},
                         async: false
                     })
+                });
+                $("body").on('hidden.bs.modal', function (e) {
+                    var $iframes = $('body').find(".video-embed-youtube");
+                    $iframes.each(function(index, iframe){
+                        $(iframe).attr("src", $(iframe).attr("src"));
+                    });
                 });
             });
         </script>

@@ -107,15 +107,16 @@ class Thematic
     /**
      * @var object
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\StatsSubThematic", mappedBy="subThematic", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\StatsSubThematic", mappedBy="subThematic", cascade={"persist", "remove"})
      */
-    private $statsSubThematic;
+    private $statsSubThematics;
 
 
     public function __construct()
     {
         $this->slides = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subThematics = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->statsSubThematics = new  \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -368,7 +369,32 @@ class Thematic
         $this->parentThematic = $parentThematic;
     }
 
-    public function __clone() {
+    /**
+     * @return object
+     */
+    public function getStatsSubThematics()
+    {
+        return $this->statsSubThematics;
+    }
+
+    /**
+     * @param mixed $statsSubThematic
+     */
+    public function addStatsSubThematic($statsSubThematic)
+    {
+        $this->statsSubThematics[] = $statsSubThematic;
+    }
+
+    /**
+     * @param mixed $subThematic
+     */
+    public function removeStatsSubThematic($subThematic)
+    {
+        $this->statsSubThematics->removeElement($subThematic);
+    }
+
+    public function __clone()
+    {
         $this->id = null;
         $this->parentThematic = null;
         $this->setIsTemplate(false);

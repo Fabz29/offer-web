@@ -52,7 +52,7 @@
                 var data = {
                     labels: [
                         {% for statsSubThematic in statsUser.statsSubThematics %}
-                        '{{ statsSubThematic.subThematicName }}',
+                            '{{ statsSubThematic.subThematicName }}',
                         {% endfor %}
                     ],
                     series: [[

@@ -70,7 +70,7 @@ class StatsSubThematic
     /**
      * @var object
      *
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Thematic", inversedBy="statsSubThematic", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Thematic", inversedBy="statsSubThematics", cascade={"persist", "remove"})
      */
     private $subThematic;
 

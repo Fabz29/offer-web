@@ -64,7 +64,7 @@ class Media
 
     /**
      * @var file
-     * @Assert\File(maxSize="2M", maxSizeMessage = "La taille du fichier ne doit pas dépasser 2 Mo")
+     * @Assert\File(maxSize="5M", maxSizeMessage = "La taille du fichier ne doit pas dépasser 5 Mo")
      */
     private $file;
 

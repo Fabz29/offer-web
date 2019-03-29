@@ -84,6 +84,13 @@ class User extends BaseUser
     private $accessEndAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="is_mobile", type="boolean")
+     */
+    private $isMobile = false;
+
+    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -290,6 +297,22 @@ class User extends BaseUser
     public function getAccessEndAt()
     {
         return $this->accessEndAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIsMobile(): string
+    {
+        return $this->isMobile;
+    }
+
+    /**
+     * @param string $isMobile
+     */
+    public function setIsMobile(string $isMobile): void
+    {
+        $this->isMobile = $isMobile;
     }
 
     /**

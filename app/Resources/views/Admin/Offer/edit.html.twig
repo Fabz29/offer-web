@@ -52,7 +52,7 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.fileDownload.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.fileDownload.file) }}
-                            <div class="helper">Type de fichier .pptx, .pdf - Taille de fichier max 2Mo</div>
+                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 5Mo</div>
                         </div>
                         {% if form.fileDownload.file.vars.errors|length %}
                             <div class="text-danger">
@@ -80,7 +80,7 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.logo.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.logo.file) }}
-                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 2Mo</div>
+                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 5Mo</div>
                         </div>
                         {% if form.logo.file.vars.errors|length %}
                             <div class="text-danger">
@@ -109,7 +109,7 @@
                     <div class="col-sm-8">
                         <div class="form-group {% if form.background.file.vars.errors|length %}has-error{% endif %}">
                             {{ form_widget(form.background.file) }}
-                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 2Mo</div>
+                            <div class="helper">Type de fichier .png, .jpg, .jpeg - Taille de fichier max 5Mo</div>
                         </div>
                         {% if form.background.file.vars.errors|length %}
                             <div class="text-danger">

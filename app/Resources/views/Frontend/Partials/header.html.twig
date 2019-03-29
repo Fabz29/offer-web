@@ -40,38 +40,41 @@
     </div>
 </nav>
 
-<header class="masthead text-center text-white d-flex">
-    <div class="container my-auto">
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <h1 class="text-uppercase">
-                    <strong>Votre offre interactive</strong>
-                </h1>
-                <hr>
-            </div>
-            <div class="col-lg-12 mx-auto">
-                <p class="text-faded">
-                    Bonjour {{ app.user.civility }} {{ app.user.lastName|upper }} <br>
-                    En réponse à votre consultation, nous avons créé pour vous cette offre dématérialisée qui reflète
-                    la motivation et la mobilisation de l’ensemble des équipes Securalliance à vous satisfaire.
+<header class="masthead text-left text-white d-flex">
+    <div class="row">
+        <div class="col-lg-6"></div>
+        <div class="col-lg-5">
+            <h1 class="text-uppercase">
+                <strong>Votre offre interactive</strong>
+            </h1>
+            <hr>
+            <p class="text-faded">
+                Bonjour {{ app.user.civility }} {{ app.user.lastName|upper }} <br>
+                En réponse à votre consultation, nous avons créé pour vous cette offre dématérialisée qui reflète
+                la motivation et la mobilisation de l’ensemble des équipes Securalliance à vous satisfaire. Nous vous
+                proposons une prestation sur mesure encadrée par un interlocuteur dédié.
+            </p>
+
+            <p class="text-faded">
+                Securalliance est le 1er réseau national d'opérateurs en sécurité privée.<br>
+                C’est la stratégie du GLOCAL : La proximité de PME et la puissance d’un réseau national.<br>
+            </p>
+            <p class="text-faded">
+                J’aurai plaisir à vous rencontrer pour vous présenter plus en détail nos différences.
+            </p>
+            <div class="text-right">
+                <p>
+                    Sylvain MOUSLER<br>
+                    Directeur commercial
                 </p>
 
-                <p class="text-faded">
-                    Securalliance est le 1er réseau national d'opérateurs en sécurité privée.<br>
-                    C’est la stratégie du GLOCAL : La proximité de PME et la puissance d’un réseau national.<br>
-                    Votre prestation sur mesure encadrée par un interlocuteur dédié.<br>
-                </p>
-                <p class="text-faded">
-                    J’aurai plaisir à vous rencontrer pour vous présenter plus en détail nos différences.
-                </p>
-                <div class="text-center">
-                    <p>
-                        Sylvain MOUSLER<br>
-                        Directeur commercial
-                    </p>
-                    <a class="btn btn-primary btn-xl js-scroll-trigger" href="#thematics">Accéder à votre offre !</a>
-                </div>
             </div>
         </div>
+        <div class="col-lg-12 text-center">
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#thematics">Accéder à votre offre !</a>
+        </div>
     </div>
+
+    </div>
+
 </header>

@@ -63,6 +63,7 @@ security:
         - { path: ^/resetting, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_profiler, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_wdt, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/saSecureAlliance(.*), roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }
-        - { path: ^/saSecureAlliance/, roles: ROLE_ADMIN }
+
 
